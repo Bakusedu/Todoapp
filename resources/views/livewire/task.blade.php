@@ -1,9 +1,9 @@
 <div class="mb-5">
     <x-jet-validation-errors/>
-    <form class="flex">
+    <form>
         @csrf
-        <div class="flex p-4 w-9/12 border-gray-400 rounded shadow-lg items-center">
-            <div class="w-8/12">
+        <div class="md:flex p-4 md:w-9/12 sm:w-full border-gray-400 rounded shadow-lg items-center">
+            <div class="md:w-8/12 sm:w-full">
                 <x-jet-label value="{{ $update ? 'UPDATE TASK' : 'CREATE TASK' }}" />
                 <x-jet-input class="block mt-1 w-full" type="text" wire:model="task" :value="old('task')" autofocus />
             </div>
