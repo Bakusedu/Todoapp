@@ -1,26 +1,27 @@
 <?php
 
 namespace App\Http\Livewire;
+
+
 use App\Models\Task;
+
+use Livewire\WithPagination;
+use App\Helpers\CollectionHelperPaginator;
 
 use Livewire\Component;
 
 class AllTasks extends Component
 {
+    use WithPagination;
 
     public $tasks = null;
 
     protected $listeners = [
-        'taskAdded' => 'getTasks',
-        'taskUpdated' => 'getTasks'
+        'taskAdded' => 'mount',
+        'taskUpdated' => 'mount'
     ];
 
     public function mount()
-    {
-        $this->tasks = auth()->user()->tasks;
-    }
-
-    public function getTasks()
     {
         $this->tasks = auth()->user()->tasks;
     }
@@ -47,6 +48,8 @@ class AllTasks extends Component
 
     public function render()
     {
-        return view('livewire.all-tasks');
+        return view('livewire.all-tasks',[
+            'all_tasks' => (new CollectionHelperPaginator(auth()->user()->tasks))->paginate(4),
+        ]);
     }
 }
